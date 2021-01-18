@@ -16,6 +16,11 @@ export CPP ?= $(CROSS_COMPILE)gcc -E
 export AR  ?= $(CROSS_COMPILE)ar
 export MODULE_LIST :=
 
+export CPPFLAGS :=
+export CXXFLAGS :=
+export CFLAGS :=
+export LDFLAGS :=
+
 START_TIME := $(shell date +"%s.%N")
 # Disable implicit rules so canonical targets will work.
 .SUFFIXES:
