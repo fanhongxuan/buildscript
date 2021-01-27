@@ -76,3 +76,11 @@ $(LOCAL_TARGET_OBJ_DIR)/%.cpp.d:$(LOCAL_TARGET_SRC_DIR)/%.cpp
 -include $(LOCAL_TARGET_CPP_DEP)
 $(LOCAL_TARGET_OBJ_DIR)/%.cpp.o:$(LOCAL_TARGET_SRC_DIR)/%.cpp $(LOCAL_TARGET_OBJ_DIR)/%.cpp.d $(LOCAL_PRECOMPILE_HEADER_GCH)
 	@$(call CompileCXX,$<,$@)
+
+$(LOCAL_TARGET_OBJ_DIR)/%.c.d:$(LOCAL_TARGET_SRC_DIR)/%.c
+	@mkdir -p $(shell dirname $@)
+	@$(CPP) $(CPPFLAGS) -MF"$@" -MM -MP -MT"$(@:.d=.o)" $<
+
+-include $(LOCAL_TARGET_C_DEP)
+$(LOCAL_TARGET_OBJ_DIR)/%.c.o:$(LOCAL_TARGET_SRC_DIR)/%.c $(LOCAL_TARGET_OBJ_DIR)/%.c.d $(LOCAL_PRECOMPILE_HEADER_GCH)
+	@$(call CompileC,$<,$@)
