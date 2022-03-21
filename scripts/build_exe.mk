@@ -43,7 +43,10 @@ endif
 $(LOCAL_TARGET): $(LOCAL_TARGET_LIST) $(LOCAL_LIB_LIST)
 	@$(call AddObj,"LINK","Generate $@")
 	@mkdir -p $(dir $@)
-	@$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@  -L$(LIB_DIR) $(LOCAL_LIB_LIST_$@)  $(LOCAL_OBJ_LIST_$@) $(LDFLAGS)
+ifdef VERBOSE
+	@echo $(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $(LOCAL_OBJ_LIST_$@) -L$(LIB_DIR) $(LOCAL_LIB_LIST_$@) $(LDFLAGS)
+endif	
+	@$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $(LOCAL_OBJ_LIST_$@) -L$(LIB_DIR) $(LOCAL_LIB_LIST_$@) $(LDFLAGS)
 ifdef VERBOSE
 	@echo "\033[32m[Build] Build $(LOCAL_TARGET) OK\033[0m"
 $(LOCAL_MODULE).start:
@@ -56,6 +59,7 @@ $(LOCAL_MODULE).debug:
 	@echo "\033[32mLOCAL_TARGET_CPP_OBJ      \033[0m:= $(LOCAL_TARGET_CPP_OBJ)"
 	@echo "\033[32mLOCAL_TARGET_CPP_DEP      \033[0m:= $(LOCAL_TARGET_CPP_DEP)"
 	@echo "\033[32mLOCAL_PRECOMPILE_HEADER   \033[0m:= $(LOCAL_PRECOMPILE_HEADER)"
+	@echo "\033[32mLOCAL_LIB_LIST            \033[0m:= $(LOCAL_LIB_LIST)"
 	@echo "\033[32mCC                        \033[0m:= $(CC)"
 	@echo "\033[32mCPPFLAGS                  \033[0m:= $(CPPFLAGS)"
 	@echo "\033[32mLOCAL_SRC_DIR             \033[0m:= $(LOCAL_SRC_DIR)"

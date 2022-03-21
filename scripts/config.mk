@@ -21,6 +21,14 @@ export CXXFLAGS :=
 export CFLAGS :=
 export LDFLAGS :=
 
+PLATFORM := linux
+CPUCOUNT := $(shell cat /proc/cpuinfo | grep -c processor)
+#CPUCOUNT := 1
+OUT_DIR := $(ROOT_DIR)/build/$(PLATFORM)/out
+INC_DIR := $(ROOT_DIR)/inc
+BIN_DIR := $(OUT_DIR)/bin
+LIB_DIR := $(OUT_DIR)/lib
+
 START_TIME := $(shell date +"%s.%N")
 # Disable implicit rules so canonical targets will work.
 .SUFFIXES:
